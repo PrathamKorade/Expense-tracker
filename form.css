@@ -1,0 +1,36 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+body{
+
+}
+h1{
+    display: flex;
+    justify-content: center;
+    margin-top: 10px;
+}
+.form{
+    display: flex;
+    justify-content: center;
+}
+form{
+    border: 1px solid black;
+    width: 40%;
+    padding: 20px;
+    margin-top: 20px;
+    border-radius: 10px;
+    transition: 0.3s;
+}
+form:hover{
+    box-shadow: 6px 4px 20px black;
+}
+p{
+    margin-top: 10px;
+
+}
+p a{
+    text-decoration: none;
+    font-weight: 700;
+    margin-left: 10px;
+}
