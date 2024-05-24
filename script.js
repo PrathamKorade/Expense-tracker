@@ -4,16 +4,12 @@ let totalAmount = 0;
 
 const categorySelect = document.getElementById('category-select');
 const amountInput = document.getElementById('amount-input');
-
-
-const commentInput = document.getElementById('comment-input');//comment
-// const dateInput = document.getElementById('date-input');
-
+const commentInput = document.getElementById('comment-input');
 const addBtn = document.getElementById('add-btn');
 const expensesTableBody = document.getElementById('expense-table-body');
 const totalAmountCell = document.getElementById('total-amount');
 
-
+//chart 
 const expenseChartCanvas = document.getElementById('expense-chart');
 let expenseChart;
 
@@ -23,14 +19,12 @@ function addExpenseToTable(expense) {
 
     const categoryCell = newRow.insertCell();
     const amountCell = newRow.insertCell();
-
     const commentCell = newRow.insertCell();
-    // const dateCell = newRow.insertCell();
-
     const createdAtCell = newRow.insertCell();
     const updatedAtCell = newRow.insertCell();
     const deleteCell = newRow.insertCell();
     const editCell = newRow.insertCell();
+    
     const deleteBtn = document.createElement('button');
     const editBtn = document.createElement('button');
 
@@ -54,10 +48,8 @@ function addExpenseToTable(expense) {
     editBtn.addEventListener('click', function () {
         categorySelect.value = expense.category;
         amountInput.value = expense.amount;
-
         commentInput.value = expense.comment;
-        // dateInput.value = expense.date;
-
+        
         addBtn.textContent = 'Update';
         addBtn.removeEventListener('click', addExpenseHandler);
         addBtn.addEventListener('click', function updateHandler() {
@@ -65,18 +57,11 @@ function addExpenseToTable(expense) {
 
             expense.category = categorySelect.value;
             expense.amount = Number(amountInput.value);
-
             expense.comment = commentInput.value;
-            // expense.date = dateInput.value;
-
             expense.updatedAt = new Date().toLocaleString();
-
             categoryCell.textContent = expense.category;
             amountCell.textContent = expense.amount;
-
             commentCell.textContent = expense.comment;
-            // dateCell.textContent = expense.date;
-
             updatedAtCell.textContent = expense.updatedAt;
 
             totalAmount = expenses.reduce((total, exp) => total + exp.amount, 0);
@@ -95,10 +80,7 @@ function addExpenseToTable(expense) {
 
     categoryCell.textContent = expense.category;
     amountCell.textContent = expense.amount;
-
     commentCell.textContent = expense.comment;
-    // dateCell.textContent = expense.date;
-
     createdAtCell.textContent = expense.createdAt;
     updatedAtCell.textContent = expense.updatedAt;
     deleteCell.appendChild(deleteBtn);
@@ -111,10 +93,7 @@ function addExpenseHandler() {
     const expense = {
         category: categorySelect.value,
         amount: Number(amountInput.value),
-
         comment:commentInput.value,
-        // date: dateInput.value,
-
         createdAt: new Date().toLocaleString(),
         updatedAt: new Date().toLocaleString()
     };
@@ -138,10 +117,7 @@ function validateInputs() {
         alert('Please enter a valid amount');
         return false;
     }
-    // if (dateInput.value === '') {
-    //     alert('Please select a date');
-    //     return false;
-    // }
+  
     return true;
 }
 
@@ -150,32 +126,12 @@ function resetInputs() {
     amountInput.value = '';
 
     commentInput.value ='';
-    // dateInput.value = '';
 }
 
 addBtn.addEventListener('click', addExpenseHandler);
 
-// Load existing expenses from local storage if any
-// function loadExpenses() {
-//     const storedExpenses = JSON.parse(localStorage.getItem('expenses')) || [];
-//     expenses = storedExpenses.map(exp => {
-//         exp.amount = Number(exp.amount); // Ensure amount is a number
-//         return exp;
-//     });
-//     expenses.forEach(expense => addExpenseToTable(expense));
-//     totalAmount = expenses.reduce((total, exp) => total + exp.amount, 0);
-//     totalAmountCell.textContent = totalAmount;
-// }
 
-// function saveExpenses() {
-//     localStorage.setItem('expenses', JSON.stringify(expenses));
-// }
 
-// // Save expenses to local storage whenever there is a change
-// window.addEventListener('beforeunload', saveExpenses);
-
-// // Initial load
-// window.addEventListener('load', loadExpenses);
 function updateChart() {
     const expenseCategories = expenses.reduce((acc, expense) => {
         acc[expense.category] = (acc[expense.category] || 0) + expense.amount;
